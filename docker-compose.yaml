@@ -20,6 +20,10 @@ services:
       - "--no-collector.nfs"
       - "--no-collector.nfsd"
       - "--no-collector.thermal_zone"
+      - "--no-collector.edac"
+      - "--no-collector.hwmon"
+      - "--no-collector.powersupplyclass"
+      - "--no-collector.tapestats"
     ports:
       - 9100:9100
     deploy:
