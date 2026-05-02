@@ -46,7 +46,7 @@ services:
       - "/var/lib/docker/:/var/lib/docker:ro"
       - "/dev/disk/:/dev/disk:ro"
     command:
-      - --disable_metrics=disk
+      - --disable_metrics=disk,diskIO
     ports:
       - "18080:8080"
     privileged: true
