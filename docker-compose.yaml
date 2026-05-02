@@ -42,11 +42,11 @@ services:
       - "/:/rootfs:ro"
       - "/var/run:/var/run:ro"
       - "/sys:/sys:ro"
-      # - "/proc:/rootfs/proc:ro"
+      - "/proc:/rootfs/proc:ro"
       - "/var/lib/docker/:/var/lib/docker:ro"
       - "/dev/disk/:/dev/disk:ro"
     command:
-      - --disable_metrics=disk,diskIO
+      - --disable_metrics=disk,referenced_memory
     ports:
       - "18080:8080"
     privileged: true
