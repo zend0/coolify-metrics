@@ -47,6 +47,7 @@ services:
       - "/dev/disk/:/dev/disk:ro"
     command:
       - --disable_metrics=disk
+      - --docker_only=true
     ports:
       - "18080:8080"
     privileged: true
