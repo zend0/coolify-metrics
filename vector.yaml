@@ -16,10 +16,6 @@ transforms:
         .container_name = slice!(string!(.container_name), 1)
       }
 
-      .coolify_app = .label.COOLIFY_APP_NAME ?? .label.coolify_app_name ?? null
-      .environment = .label.environment ?? .label.LOG_ENVIRONMENT ?? "production"
-      .project = .label.project ?? .label.LOG_PROJECT ?? null
-
 sinks:
   victorialogs:
     type: elasticsearch
