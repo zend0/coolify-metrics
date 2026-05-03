@@ -13,8 +13,8 @@ transforms:
       .nodename = get_env_var("NODE_NAME") ?? "unknown"
       del(.source_type)
       del(.host)
-      del(.label.com.docker.compose.config-hash)
-      del(.label.maintainer)
+      del(."label.com.docker.compose.config-hash")
+      del(."label.maintainer")
  
       if exists(.container_name) && starts_with(string!(.container_name), "/") {
         .container_name = slice!(string!(.container_name), 1)
