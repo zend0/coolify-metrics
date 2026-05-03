@@ -1,0 +1,36 @@
+sources:
+  docker:
+    type: docker_logs
+    docker_host: unix:///var/run/docker.sock
+    exclude_containers:
+      - vector
+
+transforms:
+  normalize:
+    type: remap
+    inputs: [docker]
+    source: |
+      .hostname = get_env_var!("HOSTNAME")
+
+      if exists(.container_name) && starts_with(string!(.container_name), "/") {
+        .container_name = slice!(string!(.container_name), 1)
+      }
+
+      .coolify_app = .label.COOLIFY_APP_NAME ?? .label.coolify_app_name ?? null
+      .environment = .label.environment ?? .label.LOG_ENVIRONMENT ?? "production"
+      .project = .label.project ?? .label.LOG_PROJECT ?? null
+
+sinks:
+  victorialogs:
+    type: elasticsearch
+    inputs: [normalize]
+    endpoints:
+      - http://${VICTORIALOGS_ENDPOINT}/insert/elasticsearch/
+    api_version: v8
+    compression: gzip
+    healthcheck:
+      enabled: false
+    query:
+      _msg_field: message
+      _time_field: timestamp
+      _stream_fields: hostname,environment,project,coolify_app,container_name,stream
