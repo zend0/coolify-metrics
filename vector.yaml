@@ -10,7 +10,7 @@ transforms:
     type: remap
     inputs: [docker]
     source: |
-      .hostname = get_env_var!("HOSTNAME")
+      .nodename = get_env_var("NODE_NAME") ?? "unknown"
 
       if exists(.container_name) && starts_with(string!(.container_name), "/") {
         .container_name = slice!(string!(.container_name), 1)
@@ -29,7 +29,7 @@ sinks:
     query:
       _msg_field: message
       _time_field: timestamp
-      _stream_fields: hostname,environment,project,coolify_app,container_name,stream
+      _stream_fields: nodename,container_name,label.coolify.environmentName,label.coolify.projectName,stream
     tls:
       verify_certificate: false
       verify_hostname: false
