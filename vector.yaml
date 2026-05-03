@@ -17,7 +17,7 @@ transforms:
         .container_name = slice!(string!(.container_name), 1)
       }
 
-      for_each(keys!(.)) -> |key| {
+      for_each(keys!(.)) -> |_index, key| {
         if starts_with(key, "label.traefik") || starts_with(key, "label.caddy") {
           . = remove!(., [key])
         }
