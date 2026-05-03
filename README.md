@@ -18,6 +18,6 @@ The following environment variables must be provided:
 **VICTORIALOGS_ENDPOINT** — the address of the VictoriaLogs instance in the format: `<hostname>:<port>`
 
 ## How It Works
-**Node Exporter** collects system-level metrics such as CPU, memory, disk, and network usage.  
-**cAdvisor** gathers metrics from all running containers.  
-**Vector** collects and processes logs from containers for centralized aggregation.  
+**[Node Exporter](https://github.com/prometheus/node_exporter)** collects system-level metrics such as CPU, memory, disk, and network usage.  
+**[cAdvisor](https://github.com/google/cadvisor)** gathers metrics from all running containers.  
+**[Vector](https://github.com/vectordotdev/vector)** collects and processes logs from containers for centralized aggregation.  
