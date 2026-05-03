@@ -13,19 +13,17 @@ transforms:
       .nodename = get_env_var("NODE_NAME") ?? "unknown"
       del(.source_type)
       del(.host)
-      del(."label.com.docker.compose.config-hash")
-      del(."label.maintainer")
  
       if exists(.container_name) && starts_with(string!(.container_name), "/") {
         .container_name = slice!(string!(.container_name), 1)
       }
 
-      for_each(keys!(.)) -> |_index, key| {
-        if starts_with(key, "label.traefik") ||
-           starts_with(key, "label.caddy") ||
-           starts_with(key, "label.org.opencontainers.image.") {
-          . = remove!(., [key])
-        }
+      . = filter(object!(.)) -> |key, value| {
+        !(starts_with(key, "label.traefik") ||
+          starts_with(key, "label.caddy") ||
+          starts_with(key, "label.org.opencontainers.image.") ||
+          key == "label.com.docker.compose.config-hash" ||
+          key == "label.maintainer")
       }
 
 sinks:
