@@ -24,6 +24,7 @@ transforms:
             starts_with(key, "caddy") ||
             starts_with(key, "org.opencontainers.image.") ||
             key == "com.docker.compose.config-hash" ||
+            key == "com.docker.compose.container-number" ||
             key == "maintainer")
         }
       }
